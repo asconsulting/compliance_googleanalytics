@@ -43,7 +43,7 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
         } 
     }
 	
-	if (allowGa == null) {
+	if (allowGa == null && gaNotice) {
 		approve_elements = gaNotice.getElementsByClassName('ga_accept');
 		decline_elements = gaNotice.getElementsByClassName('ga_decline');
 		Array.prototype.forEach.call(approve_elements, function(el) {
