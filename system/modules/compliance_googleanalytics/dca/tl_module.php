@@ -13,8 +13,8 @@
 /**
  * Add a palette to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['compliance_ga_notice'] 	= '{title_legend},name,headline,type;{compliance_legend},googleAnalyticsNotice;{template_legend:hide},customTpl;{expert_legend:hide},guests,cssID,space';
-
+$GLOBALS['TL_DCA']['tl_module']['palettes']['compliance_ga_notice'] 	= '{title_legend},name,type;{compliance_legend},googleAnalyticsNotice;{template_legend:hide},customTpl;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['compliance_ga_optinout'] 	= '{title_legend},name,type;{template_legend:hide},customTpl;{expert_legend:hide},guests,cssID,space';
 
 // Search Fields
 $GLOBALS['TL_DCA']['tl_module']['fields']['googleAnalyticsNotice'] = array
