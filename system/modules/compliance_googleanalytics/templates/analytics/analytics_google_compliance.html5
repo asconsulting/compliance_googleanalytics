@@ -66,7 +66,9 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 		console.log('Google Analytics has been declined.');
 	} else if (allowGa == null && gaNotice) {
 		gaNotice.classList.remove("compliance_hidden");
-		console.log('Google Analytics concent not found.');
+		console.log('Google Analytics consent not found.');
+	} else if (!gaNotice) {
+		console.log('Google Analytics consent form not found.');
 	}
 </script>
 
