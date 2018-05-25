@@ -29,24 +29,26 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 			event.preventDefault();
 			document.cookie = "compliance_ga=ALLOW; max-age=<?php echo $AskFrequency; ?>"; 
 			gaNotice.classList.add("compliance_hidden");
+			location.reload();
 		};
 		
 		var storeGaDecline = function(event) {
 			event.preventDefault();
 			document.cookie = "compliance_ga=DECLINE; max-age=<?php echo $AskFrequency; ?>"; 
 			gaNotice.classList.add("compliance_hidden");
+			location.reload();
 		};
 		
 		var gaOptOut = function(event) {
 			event.preventDefault();
 			document.cookie = "compliance_ga=DECLINE; max-age=<?php echo $AskFrequency; ?>"; 
-			document.reload();
+			location.reload();
 		}
 		
 		var gaOptIn = function(event) {
 			event.preventDefault();
 			document.cookie = "compliance_ga=ALLOW; max-age=<?php echo $AskFrequency; ?>"; 
-			document.reload();
+			location.reload();
 		}
 		
 		for(var i = 0; i < cookieArray.length; i++) {
@@ -55,7 +57,7 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 				c = c.substring(1);
 			}
 			if (c.indexOf('compliance_ga') == 0) {
-				allowGa = c.substring(13, c.length);
+				allowGa = c.substring(14, c.length);
 			} 
 		}
 		
@@ -84,13 +86,14 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 					el.addEventListener("click", gaOptOut);
 				});
 			}
-			alert('Loaded GA');
 		} else if (allowGa == 'DECLINE') {
 			console.log('Google Analytics has been declined.');
-			optout_elements = document.getElementsByClassName('ga_opt_in');
-			Array.prototype.forEach.call(optout_elements, function(el) {
-				el.addEventListener("click", gaOptIn);
-			});
+			optin_elements = document.getElementsByClassName('ga_opt_in');
+			if (optin_elements) {
+				Array.prototype.forEach.call(optin_elements, function(el) {
+					el.addEventListener("click", gaOptIn);
+				});
+			}
 		} else if (allowGa == null && gaNotice) {
 			gaNotice.classList.remove("compliance_hidden");
 			console.log('Google Analytics consent not found.');
