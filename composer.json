@@ -1,0 +1,36 @@
+{
+    "name":"asconsulting/compliance_googleanalytics",
+    "description":"Module for allowing users to opt out of Google Analytics for Contao Open Source CMS",
+    "homepage": "https://andrewstevens.consulting",
+    "keywords":["contao", "google analytics", "google", "analytics", "privacy", "gdpr"],
+    "type":"contao-module",
+    "license":"LGPL-3.0-or-later",
+    "authors":[
+        {
+            "name":"Andrew Stevens",
+            "homepage":"https://andrewstevens.consulting"
+        }
+    ],
+    "require":{
+        "php": "~5.4 || ~7.0",
+        "contao/core-bundle": "^3.5.2 || ~4.4"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Compliance\\": [
+                "system/modules/compliance_googleanalytics/library"
+            ]
+        }
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "system/modules/compliance_googleanalytics": "system/modules/compliance_googleanalytics"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
