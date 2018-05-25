@@ -18,58 +18,63 @@ $AskFrequency = 31536000;
 if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthenticatedBackendUser()): ?>
 
 <script>
-	var gaNotice = document.getElementById("google_analytics_notice");
-    var documentCookies = decodeURIComponent(document.cookie);
-    var cookieArray = documentCookies.split(';');
-	var allowGa = null;
-	
-	var storeGaAllow = function(event) {
-		event.preventDefault();
-		document.cookie = "compliance_ga=ALLOW; max-age=<?php echo $AskFrequency; ?>"; 
-	};
-	
-	var storeGaDecline = function(event) {
-		event.preventDefault();
-		document.cookie = "compliance_ga=DECLINE; max-age=<?php echo $AskFrequency; ?>"; 
-	};
-	
-    for(var i = 0; i < cookieArray.length; i++) {
-        var c = cookieArray[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf('compliance_ga') == 0) {
-			allowGa = c.substring(13, c.length);
-        } 
-    }
-	
-	if (allowGa == null && gaNotice) {
-		approve_elements = gaNotice.getElementsByClassName('ga_accept');
-		decline_elements = gaNotice.getElementsByClassName('ga_decline');
-		Array.prototype.forEach.call(approve_elements, function(el) {
-			el.addEventListener("click", storeGaAllow);
-		});
-		Array.prototype.forEach.call(decline_elements, function(el) {
-			el.addEventListener("click", storeGaDecline);
-		});
+	var initializeGaCompliance = function() { 
+
+		var gaNotice = document.getElementById("google_analytics_notice");
+		var documentCookies = decodeURIComponent(document.cookie);
+		var cookieArray = documentCookies.split(';');
+		var allowGa = null;
+		
+		var storeGaAllow = function(event) {
+			event.preventDefault();
+			document.cookie = "compliance_ga=ALLOW; max-age=<?php echo $AskFrequency; ?>"; 
+		};
+		
+		var storeGaDecline = function(event) {
+			event.preventDefault();
+			document.cookie = "compliance_ga=DECLINE; max-age=<?php echo $AskFrequency; ?>"; 
+		};
+		
+		for(var i = 0; i < cookieArray.length; i++) {
+			var c = cookieArray[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf('compliance_ga') == 0) {
+				allowGa = c.substring(13, c.length);
+			} 
+		}
+		
+		if (allowGa == null && gaNotice) {
+			approve_elements = gaNotice.getElementsByClassName('ga_accept');
+			decline_elements = gaNotice.getElementsByClassName('ga_decline');
+			Array.prototype.forEach.call(approve_elements, function(el) {
+				el.addEventListener("click", storeGaAllow);
+			});
+			Array.prototype.forEach.call(decline_elements, function(el) {
+				el.addEventListener("click", storeGaDecline);
+			});
+		}
+		
+		if (allowGa == 'ALLOW') {
+			console.log('Google Analytics has been approved.');
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+			ga('create', '<?= $GoogleAnalyticsId ?>', 'auto');
+			<?php if (Config::get('privacyAnonymizeGA')): ?>
+			ga('set', 'anonymizeIp', true);
+			<?php endif; ?>
+			ga('send', 'pageview');
+		} else if (allowGa == 'DECLINE') {
+			console.log('Google Analytics has been declined.');
+		} else if (allowGa == null && gaNotice) {
+			gaNotice.classList.remove("compliance_hidden");
+			console.log('Google Analytics consent not found.');
+		} else if (!gaNotice) {
+			console.log('Google Analytics consent form not found.');
+		}
 	}
 	
-	if (allowGa == 'ALLOW') {
-		console.log('Google Analytics has been approved.');
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-		ga('create', '<?= $GoogleAnalyticsId ?>', 'auto');
-		<?php if (Config::get('privacyAnonymizeGA')): ?>
-		ga('set', 'anonymizeIp', true);
-		<?php endif; ?>
-		ga('send', 'pageview');
-	} else if (allowGa == 'DECLINE') {
-		console.log('Google Analytics has been declined.');
-	} else if (allowGa == null && gaNotice) {
-		gaNotice.classList.remove("compliance_hidden");
-		console.log('Google Analytics consent not found.');
-	} else if (!gaNotice) {
-		console.log('Google Analytics consent form not found.');
-	}
+	window.onload = initializeGaCompliance();
 </script>
 
 <?php endif; ?>
