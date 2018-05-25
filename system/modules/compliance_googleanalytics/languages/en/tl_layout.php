@@ -11,6 +11,6 @@
 
  
 /**
- * Front end modules
- */ 
-$GLOBALS['FE_MOD']['compliance']['compliance_ga_notice'] 	= 'Compliance\Module\GoogleAnalyticsNotice';
+ * Analytics
+ */
+$GLOBALS['TL_LANG']['tl_layout']['analytics_google_compliance'] = "Google Analytics (Compliance)";

@@ -15,14 +15,15 @@
  */
 ClassLoader::addClasses(array
 (
-    'Compliance\GoogleAnalytics' 		=> 'system/modules/compliance_googleanalytics/library/Compliance/GoogleAnalytics.php',
+    'Compliance\GoogleAnalytics' 				=> 'system/modules/compliance_googleanalytics/library/Compliance/GoogleAnalytics.php',
+	'Compliance\Module\GoogleAnalyticsNotice' 	=> 'system/modules/compliance_googleanalytics/library/Compliance/Module/GoogleAnalyticsNotice.php',
 ));
-
 
 /**
  * Register the templates
  */
 TemplateLoader::addFiles(array
 (
-    'analytics_google_compliance' 		=> 'system/modules/compliance_googleanalytics/templates/modules',
+    'mod_compliance_ga_notice' 			=> 'system/modules/compliance_googleanalytics/templates/modules',
+    'analytics_google_compliance' 		=> 'system/modules/compliance_googleanalytics/templates/analytics',
 ));
