@@ -54,7 +54,7 @@ class GoogleAnalyticsNotice extends \Contao\Module
     protected function compile()
     {	
 		$GLOBALS['TL_CSS'][] = "system/modules/compliance_googleanalytics/assets/css/compliance_google_analytics.css";
-		$this->Template->googleAnalyticsNotice($this->googleAnalyticsNotice);
+		$this->Template->googleAnalyticsNotice = $this->googleAnalyticsNotice;
     }
 
 }
