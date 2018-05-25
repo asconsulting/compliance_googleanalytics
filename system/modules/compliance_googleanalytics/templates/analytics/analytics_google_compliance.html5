@@ -64,7 +64,7 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 		ga('send', 'pageview');
 	} else if (allowGa == 'DECLINE') {
 		console.log('Google Analytics has been declined.');
-	} else if (allowGa == null) {
+	} else if (allowGa == null && gaNotice) {
 		gaNotice.classList.remove("compliance_hidden");
 		console.log('Google Analytics concent not found.');
 	}
