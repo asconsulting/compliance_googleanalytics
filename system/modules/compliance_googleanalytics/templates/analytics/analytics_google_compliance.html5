@@ -19,7 +19,6 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 
 <script>
 	var initializeGaCompliance = function() { 
-
 		var gaNotice = document.getElementById("google_analytics_notice");
 		var documentCookies = decodeURIComponent(document.cookie);
 		var cookieArray = documentCookies.split(';');
@@ -72,9 +71,7 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 		} else if (!gaNotice) {
 			console.log('Google Analytics consent form not found.');
 		}
-	}
-	
-	document.addEventListener('DOMContentLoaded', initializeGaCompliance, false);
+	};
 </script>
 
 <?php endif; ?>
