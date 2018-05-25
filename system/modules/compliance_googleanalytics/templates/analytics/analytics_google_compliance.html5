@@ -79,9 +79,12 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 			<?php endif; ?>
 			ga('send', 'pageview');
 			optout_elements = document.getElementsByClassName('ga_opt_out');
-			Array.prototype.forEach.call(optout_elements, function(el) {
-				el.addEventListener("click", gaOptOut);
-			});
+			if (optout_elements) {
+				Array.prototype.forEach.call(optout_elements, function(el) {
+					el.addEventListener("click", gaOptOut);
+				});
+			}
+			alert('Loaded GA');
 		} else if (allowGa == 'DECLINE') {
 			console.log('Google Analytics has been declined.');
 			optout_elements = document.getElementsByClassName('ga_opt_in');
