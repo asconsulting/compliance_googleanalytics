@@ -18,7 +18,7 @@ $AskFrequency = 31536000;
 if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthenticatedBackendUser()): ?>
 
 <script>
-	var initializeGaCompliance = function() { 
+	window.onload = function() { 
 
 		var gaNotice = document.getElementById("google_analytics_notice");
 		var documentCookies = decodeURIComponent(document.cookie);
@@ -95,8 +95,6 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 			console.log('Google Analytics consent form not found.');
 		}
 	};
-	
-	window.onload = initializeGaCompliance();
 </script>
 
 <?php endif; ?>
