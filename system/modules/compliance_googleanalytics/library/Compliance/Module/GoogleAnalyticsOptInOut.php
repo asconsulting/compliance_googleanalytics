@@ -15,14 +15,14 @@ namespace Compliance\Module;
 /**
  * Class Asc\Module\DirectoryReader
  */
-class GoogleAnalyticsNotice extends \Contao\Module
+class GoogleAnalyticsOptInOut extends \Contao\Module
 {
  
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_compliance_ga_notice';
+    protected $strTemplate = 'mod_compliance_ga_optinout';
 
  
     /**
@@ -35,7 +35,7 @@ class GoogleAnalyticsNotice extends \Contao\Module
         {
             $objTemplate = new \BackendTemplate('be_wildcard');
  
-            $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['compliance_ga_notice'][0]) . ' ###';
+            $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['compliance_ga_optinout'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
@@ -56,7 +56,9 @@ class GoogleAnalyticsNotice extends \Contao\Module
 		if (!in_array("system/modules/compliance_googleanalytics/assets/css/compliance_google_analytics.css", $GLOBALS['TL_CSS'])) {
 			$GLOBALS['TL_CSS'][] = "system/modules/compliance_googleanalytics/assets/css/compliance_google_analytics.css";
 		}
-		$this->Template->googleAnalyticsNotice = $this->googleAnalyticsNotice;
+		
+		$this->Template->optedIn = ($_COOKIE['compliance_ga'] == 'ALLOW');
+		$this->Template->optedOut = ($_COOKIE['compliance_ga'] == 'DECLINE');
     }
 
 }

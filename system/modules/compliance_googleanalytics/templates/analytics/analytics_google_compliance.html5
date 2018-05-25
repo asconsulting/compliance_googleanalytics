@@ -19,6 +19,7 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 
 <script>
 	var initializeGaCompliance = function() { 
+
 		var gaNotice = document.getElementById("google_analytics_notice");
 		var documentCookies = decodeURIComponent(document.cookie);
 		var cookieArray = documentCookies.split(';');
@@ -27,12 +28,26 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 		var storeGaAllow = function(event) {
 			event.preventDefault();
 			document.cookie = "compliance_ga=ALLOW; max-age=<?php echo $AskFrequency; ?>"; 
+			gaNotice.classList.add("compliance_hidden");
 		};
 		
 		var storeGaDecline = function(event) {
 			event.preventDefault();
 			document.cookie = "compliance_ga=DECLINE; max-age=<?php echo $AskFrequency; ?>"; 
+			gaNotice.classList.add("compliance_hidden");
 		};
+		
+		var gaOptOut = function(event) {
+			event.preventDefault();
+			document.cookie = "compliance_ga=DECLINE; max-age=<?php echo $AskFrequency; ?>"; 
+			document.reload();
+		}
+		
+		var gaOptIn = function(event) {
+			event.preventDefault();
+			document.cookie = "compliance_ga=ALLOW; max-age=<?php echo $AskFrequency; ?>"; 
+			document.reload();
+		}
 		
 		for(var i = 0; i < cookieArray.length; i++) {
 			var c = cookieArray[i];
@@ -63,8 +78,16 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 			ga('set', 'anonymizeIp', true);
 			<?php endif; ?>
 			ga('send', 'pageview');
+			optout_elements = document.getElementsByClassName('ga_opt_out');
+			Array.prototype.forEach.call(optout_elements, function(el) {
+				el.addEventListener("click", gaOptOut);
+			});
 		} else if (allowGa == 'DECLINE') {
 			console.log('Google Analytics has been declined.');
+			optout_elements = document.getElementsByClassName('ga_opt_in');
+			Array.prototype.forEach.call(optout_elements, function(el) {
+				el.addEventListener("click", gaOptIn);
+			});
 		} else if (allowGa == null && gaNotice) {
 			gaNotice.classList.remove("compliance_hidden");
 			console.log('Google Analytics consent not found.');

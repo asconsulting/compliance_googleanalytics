@@ -1,0 +1,9 @@
+<?php if ($this->optedIn || $this->optedOut): ?>
+<div class="google_analytics_optinout">
+	<?php if ($this->optedOut): ?>
+	<button class='ga_opt_in'>Opt in to Google Analytics</button>
+	<?php else: ?>
+	<button class='ga_opt_out'>Opt Out of Google Analytics</button>
+	<?php endif; ?>
+</div>
+<?php endif; ?>

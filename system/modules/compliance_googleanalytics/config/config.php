@@ -14,3 +14,4 @@
  * Front end modules
  */ 
 $GLOBALS['FE_MOD']['compliance']['compliance_ga_notice'] 	= 'Compliance\Module\GoogleAnalyticsNotice';
+$GLOBALS['FE_MOD']['compliance']['compliance_ga_optinout'] 	= 'Compliance\Module\GoogleAnalyticsOptInOut';
