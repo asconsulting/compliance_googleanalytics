@@ -95,6 +95,8 @@ if ($GoogleAnalyticsId != 'UA-XXXXX-X' && !BE_USER_LOGGED_IN && !$this->hasAuthe
 			console.log('Google Analytics consent form not found.');
 		}
 	};
+	
+	window.onload = initializeGaCompliance();
 </script>
 
 <?php endif; ?>

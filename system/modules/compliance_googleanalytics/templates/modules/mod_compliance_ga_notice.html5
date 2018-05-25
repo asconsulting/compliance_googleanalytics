@@ -3,4 +3,3 @@
 	<button class='ga_decline'>Do NOT track visit with Google Analytics</button>
 	<button class='ga_accept'>You can track my visit with Google Analytics</button>
 </div>
-<script>initializeGaCompliance();</script>
