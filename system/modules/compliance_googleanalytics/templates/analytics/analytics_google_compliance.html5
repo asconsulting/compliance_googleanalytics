@@ -7,7 +7,7 @@
 $GoogleAnalyticsId = 'UA-12345-6';
 
 /**
- * Time in seconds cookie allowing Google Analytics will last
+ * Time in seconds cookie opting In/Out of Google Analytics will last
  */
 $AskFrequency = 31536000;
 
